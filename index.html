@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simular Financeiro</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container" id="form-container">
+        <h1 class="title">Simular Financeiro</h1>
+        <div class="form-group">
+            <label for="renda">Qual é a Sua Mensal:</label>
+            <input type="text" id="renda" name="renda" required placeholder="EX: 1.000,00" oninput="formatarValorMonetario(this)">
+        </div>
+
+        <div class="form-group">
+            <label>Tem Depedente(s)</label>
+                <div class="button-group">
+                    <button type="button" onclick="selecionarOpcao(this, 'filhos', 'sim')">Sim</button>
+                    <button type="button" onclick="selecionarOpcao(this, 'filhos', 'nao')">Não</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Vai Compor Reda Com Mais Alguem?</label>
+                <div class="button-group">
+                    <button type="button" onclick="selecionarOpcao(this, 'compor', 'sim')">Sim</button>
+                    <button type="button" onclick="selecionarOpcao(this, 'compor', 'nao')">Não</button>
+                </div>
+            </div>
+        <div class="form-group hidden" id="compor-valor-group">
+            <label for="compor-valor">Valor da Renda a Compor:</label>
+            <input type="text" id="compor-valor" name="compor-valor" placeholder="EX: 1.000,00" oninput="formatarValorMonetario(this)">
+        </div>
+        <div id="button-container">
+                <button class="3-button" type="button" onclick="validarFormulario1()">Próximo</button>
+        </div>
+    </div>
+     
+    <div class="container hidden" id="form-container-2">
+        <h1>Simular Financeiro</h1>
+
+        <div class="form-group">
+            <label>Adicionar FGTS?</label>
+            <div class="button-group">
+                <button type="button" onclick="selecionarOpcao(this, 'fgts', 'sim')">Sim</button>
+                <button type="button" onclick="selecionarOpcao(this, 'fgts', 'nao')">Não</button>
+            </div>
+        </div>
+        <div class="form-group hidden" id="fgts-valor-group">
+            <input type="text" id="fgts-valor" name="fgts-valor" placeholder="EX: 1.000,00" oninput="formatarValorMonetario(this)">
+        </div>
+ 
+        <div class="form-group hidden" id="compor-fgts-group">
+            <label>Adicionar Um Segundo FGTS?</label>
+            <div class="button-group">
+                <button type="button" onclick="selecionarOpcao(this, 'compor-fgts', 'sim')">Sim</button>
+                <button type="button" onclick="selecionarOpcao(this, 'compor-fgts', 'nao')">Não</button>
+            </div>
+        </div>
+        <div class="form-group hidden" id="compor-fgts-valor-group">
+            <input type="text" id="compor-fgts-valor" name="compor-fgts-valor" placeholder="EX: 1.000,00" oninput="formatarValorMonetario(this)">
+        </div>
+        <div id="button-container">
+        <button type="button" class="back-button" onclick="voltarFormulario()">Voltar</button>
+        <button type="button" id="next-button1" onclick="validarFormulario2()">Próximo</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="form-container-3">
+        <h1>Contato</h1>
+        <div class="form-group">
+            <label for="nome">Seu Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+        </div>
+        <div class="form-group">
+            <label for="numero">Número(WhatsApp):</label>
+            <input type="text" id="numero" name="numero" required placeholder="Seu número" oninput="formatarTelefone(this)" maxlength="15">
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required placeholder="Seu email">
+        </div>
+        <div id="button-container">
+        <button type="button" class="back-button" onclick="voltarFormulario2()">Voltar</button>
+        <button type="button" class="next-button" onclick="validarFormularioContato()">Próximo</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="loading-container">
+        <div class="loading">
+            <div class="loading-circle"></div>
+        </div>
+    </div>
+
+    <div class="container hidden" id="result-container">
+        <div class="result" id="result"></div>
+        <button class="reload-button" onclick="voltar()">
+            <i class="fas fa-arrow-left"></i>
+            <button id="enviar-dados" onclick="window.location.href='https://wa.me/5511945764317'">
+                <i class="fab fa-whatsapp"></i> Enviar
+            
+
+    <script src="script.js"></script>
+    <script src="script2.js"></script>
+    <script src="dados.js"></script>
+    <script src="sheetMonkey.js"></script>
+</body>
+</html>
+<!--Bizury-->

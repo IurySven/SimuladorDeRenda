@@ -1,0 +1,93 @@
+.reload-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #263e96; /* Cor principal */
+    color: white;
+    padding: 10px;
+    border-radius: 50%; /* Torna o botão redondo */
+    font-size: 20px; /* Tamanho do texto */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reload-button:hover {
+    background-color: #BFCDFF; /* Nova cor secundária */
+}
+
+/* Estilo para o ícone de voltar */
+.reload-button i {
+    font-size: 1.5em; /* Ajuste do tamanho do ícone */
+}
+
+.result-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px; /* Espaçamento entre os resultados e o botão de enviar */
+}
+
+.result-header {
+    font-size: 1.2em; /* Tamanho da fonte para "Renda" */
+    font-weight: bold;
+    color: #000000; /* Cor preta */
+    margin-bottom: 20px; /* Espaçamento abaixo de "Renda" */
+}
+
+.result-header .value {
+    display: block;
+    font-size: 1.2em; /* Tamanho da fonte dos números ligeiramente reduzido */
+    color: #00A000; /* Números em verde */
+    margin-top: 5px; /* Espaço entre o texto e o número */
+}
+
+.result-item {
+    display: inline-block;
+    margin: 0 15px;
+    font-size: 0.9em; /* Tamanho da fonte ligeiramente reduzido */
+    font-weight: bold;
+    color: #000000; /* Texto principal em preto */
+}
+
+.result-item .value {
+    display: block;
+    font-size: 1em; /* Tamanho da fonte dos números ligeiramente reduzido */
+    color: #00A000; /* Números em verde */
+    margin-top: 5px; /* Espaço entre o texto e o número */
+}
+
+.result-spacer {
+    display: block;
+    height: 20px; /* Espaçamento vertical */
+}
+
+
+
+#enviar-dados {
+    display: block;
+    margin: 20px auto;
+    padding: 20px 40px; /* Tamanho grande */
+    background-color: #263e96; /* Cor principal */
+    color: white;
+    border: none;
+    border-radius: 30px; /* Borda arredondada */
+    font-size: 1.5em; /* Fonte maior */
+    font-weight: bold; /* Negrito para destacar */
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#enviar-dados:hover {
+    background-color: #BFCDFF; /* Nova cor secundária */
+    transform: scale(1.05); /* Efeito de hover para destaque */
+}
+
+#enviar-dados i {
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+}
+

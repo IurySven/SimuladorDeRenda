@@ -1,0 +1,249 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 20px;
+    color: #000000; /* Cor terciária: Preto */
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #263e96; /* Cor principal */
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    background-color: #ffffff; /* Cor secundária: Branco */
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Espaço aumentado entre os botões */
+    margin-top: 10px;
+}
+
+.button-group button {
+    padding: 8px 16px; /* Tamanho ajustado dos botões */
+    background-color: white; /* Cor padrão branco */
+    color: #263e96; /* Cor principal */
+    border: 2px solid #263e96;
+    border-radius: 20px; /* Tornando os botões mais arredondados */
+    font-size: 1em; /* Diminuindo o tamanho da fonte */
+    font-weight: bold; /* Deixando a fonte em negrito */
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.button-group button.active {
+    background-color: #263e96; /* Cor quando selecionado */
+    border-color: #263e96; /* Cor principal */
+    color: white;
+}
+
+.button-group button:hover {
+    background-color: #BFCDFF; /* Nova cor secundária */
+}
+
+.hidden {
+    display: none;
+}
+
+.result,
+.loading {
+    font-size: 24px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    flex-direction: column;
+}
+
+.result {
+    color: black;
+}
+
+.result .value,
+.result .currency {
+    color: #BFCDFF; /* Nova cor secundária */
+}
+
+.result.error {
+    color: red;
+}
+
+.loading {
+    color: #263e96; /* Cor principal */
+}
+
+.loading-circle {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(38, 62, 150, 0.3); /* Cor principal em RGBA */
+    border-radius: 50%;
+    border-top-color: #263e96; /* Cor principal */
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 30px;
+    background-color: #263e96;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #BFCDFF;
+}
+
+#button-container .back-button {
+    padding: 12px 28px; /* Tamanho ajustado para coincidir com os botões do formulário de contato */
+    font-size: 1.1em; /* Tamanho da fonte ajustado para coincidir */
+    border-radius: 30px; /* Ajustando o raio da borda */
+    background-color: #263e96;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    width: auto; /* Ajuste automático da largura */
+    white-space: nowrap; /* Evita quebra de linha */
+}
+
+#button-container .back-button:hover {
+    background-color: #BFCDFF; /* Nova cor secundária */
+}
+
+#button-container .next-button {
+    padding: 12px 28px; /* Tamanho ajustado para coincidir com os botões do formulário de contato */
+    font-size: 1.1em; /* Tamanho da fonte ajustado para coincidir */
+    border-radius: 30px; /* Ajustando o raio da borda */
+    background-color: #263e96;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    width: auto; /* Ajuste automático da largura */
+    white-space: nowrap; /* Evita quebra de linha */
+}
+
+#button-container .next-button:hover {
+    background-color: #BFCDFF; /* Nova cor secundária */
+}
+
+#button-container {
+    display: flex;
+    justify-content: center; /* Centraliza os botões no meio */
+    gap: 40px; /* Aumentando o espaço entre os botões para 40px */
+    margin-top: 20px; /* Espaço acima dos botões */
+}
+
+#renda::placeholder,
+#fgts-valor::placeholder,
+#compor-valor::placeholder,
+#compor-fgts-valor::placeholder,
+#nome::placeholder,
+#numero::placeholder,
+#email::placeholder {
+    color: #adadad;
+}
+
+#enviar-dados {
+    display: block;
+    margin: 20px auto;
+    padding: 15px 30px;
+    background-color: #263e96; /* Cor principal */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#enviar-dados:hover {
+    background-color: #BFCDFF; /* Nova cor secundária */
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="email"] {
+    width: 45%; /* Tamanho geral das caixas de texto */
+    padding: 8px;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid #BFCDFF; /* Cor secundária inicialmente */
+    outline: none;
+    transition: transform 0.3s, border-bottom-color 0.3s;
+}
+
+.form-group input[type="text"]:hover,
+.form-group input[type="number"]:hover,
+.form-group input[type="email"]:hover {
+    border-bottom-color: #263e96; /* Cor principal quando interagida */
+    transform: scale(1.05);
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="email"]:focus {
+    border-bottom-color: #263e96; /* Cor principal quando interagida */
+    transform: scale(1.05);
+}
+
+#nome {
+    width: 55%; /* Tamanho específico para a caixa de texto do nome */
+}
+
+.reload-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #263e96; /* Cor principal */
+    color: white;
+    padding: 10px;
+    border-radius: 50%; /* Torna o botão redondo */
+    font-size: 20px; /* Tamanho do texto */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reload-button:hover {
+    background-color: #BFCDFF; /* Nova cor secundária */
+}
+
+/* Estilo para o ícone de voltar */
+.reload-button i {
+    font-size: 1.5em; /* Ajuste do tamanho do ícone */
+}
+
