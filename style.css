@@ -220,30 +220,3 @@ button:hover {
     width: 55%; /* Tamanho específico para a caixa de texto do nome */
 }
 
-.reload-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #263e96; /* Cor principal */
-    color: white;
-    padding: 10px;
-    border-radius: 50%; /* Torna o botão redondo */
-    font-size: 20px; /* Tamanho do texto */
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.reload-button:hover {
-    background-color: #BFCDFF; /* Nova cor secundária */
-}
-
-/* Estilo para o ícone de voltar */
-.reload-button i {
-    font-size: 1.5em; /* Ajuste do tamanho do ícone */
-}
-

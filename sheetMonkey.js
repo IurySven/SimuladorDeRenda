@@ -1,5 +1,3 @@
-// sheetMonkey.js
-
 function enviarDadosParaSheetMonkey(totalRenda, totalFinanciamento, parcelas, subsidio) {
     const renda = document.getElementById('renda').value;
     const fgts = document.querySelector('input[name="fgts"]:checked') ? document.querySelector('input[name="fgts"]:checked').value : '';
@@ -13,6 +11,11 @@ function enviarDadosParaSheetMonkey(totalRenda, totalFinanciamento, parcelas, su
     const numero = document.getElementById('numero').value;
     const email = document.getElementById('email').value;
 
+    const now = new Date();
+    const dataEnvio = now.toLocaleDateString();
+    const horaEnvio = now.toLocaleTimeString();
+    const empresa = "Cury";
+
     const data = {
         renda,
         fgts,
@@ -25,13 +28,16 @@ function enviarDadosParaSheetMonkey(totalRenda, totalFinanciamento, parcelas, su
         nome,
         numero,
         email,
+        dataEnvio,
+        horaEnvio,
+        empresa,
         totalRenda: formatNumber(totalRenda),
         totalFinanciamento: formatNumber(totalFinanciamento),
         parcelas: formatNumber(parcelas),
         subsidio: formatNumber(subsidio)
     };
 
-    const url = 'https://api.sheetmonkey.io/form/hEVgf45af1zuYu8xiCVk5D';
+    const url = 'https://api.sheetmonkey.io/form/QJ2BgFDaALqHsqkgr6Yvu';
     fetch(url, {
         method: 'POST',
         headers: {

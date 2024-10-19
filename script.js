@@ -27,6 +27,9 @@ function selecionarOpcao(botao, nome, valor) {
     if (nome === 'compor' && valor === 'sim') {
         document.getElementById('compor-valor-group').classList.remove('hidden');
         document.getElementById('compor-valor').setAttribute('required', 'required');
+        document.getElementById('compor-valor').addEventListener('invalid', function() {
+            highlightErrorInput(this);
+        });
         document.getElementById('compor-fgts-group').classList.remove('hidden');
     } else if (nome === 'compor' && valor === 'nao') {
         document.getElementById('compor-valor-group').classList.add('hidden');
@@ -37,6 +40,9 @@ function selecionarOpcao(botao, nome, valor) {
     if (nome === 'fgts' && valor === 'sim') {
         document.getElementById('fgts-valor-group').classList.remove('hidden');
         document.getElementById('fgts-valor').setAttribute('required', 'required');
+        document.getElementById('fgts-valor').addEventListener('invalid', function() {
+            highlightErrorInput(this);
+        });
     } else if (nome === 'fgts' && valor === 'nao') {
         document.getElementById('fgts-valor-group').classList.add('hidden');
         document.getElementById('fgts-valor').removeAttribute('required');
@@ -45,12 +51,16 @@ function selecionarOpcao(botao, nome, valor) {
     if (nome === 'compor-fgts' && valor === 'sim') {
         document.getElementById('compor-fgts-valor-group').classList.remove('hidden');
         document.getElementById('compor-fgts-valor').setAttribute('required', 'required');
+        document.getElementById('compor-fgts-valor').addEventListener('invalid', function() {
+            highlightErrorInput(this);
+        });
     } else if (nome === 'compor-fgts' && valor === 'nao') {
         document.getElementById('compor-fgts-valor-group').classList.add('hidden');
         document.getElementById('compor-fgts-valor').removeAttribute('required');
     }
 }
-// Adicione esses elementos para capturar as escolhas
+
+// Adicion esses elementos para capturar as escolhas
 document.body.insertAdjacentHTML('beforeend', `
     <input type="radio" id="filhos-sim" name="filhos" value="sim" class="hidden">
     <input type="radio" id="filhos-nao" name="filhos" value="nao" class="hidden">
@@ -77,36 +87,118 @@ function toggleComporRenda(show) {
     }
 }
 
+
 function validarFormulario1() {
     const rendaInput = document.getElementById('renda');
     const filhosSim = document.getElementById('filhos-sim').checked;
     const filhosNao = document.getElementById('filhos-nao').checked;
     const comporSim = document.getElementById('compor-sim').checked;
     const comporNao = document.getElementById('compor-nao').checked;
+    const comporValorInput = document.getElementById('compor-valor');
+
     if (!rendaInput.checkValidity()) {
-        rendaInput.reportValidity();
+        highlightErrorInput(rendaInput);
         return;
     }
+
     if (!filhosSim && !filhosNao) {
-        alert('Por favor, selecione uma opção sobre filhos.');
+        highlightErrorButtons('filhos');
         return;
     }
+
     if (!comporSim && !comporNao) {
-        alert('Por favor, selecione uma opção sobre compor renda.');
+        highlightErrorButtons('compor');
         return;
     }
-    
+
+    if (comporSim && !comporValorInput.checkValidity()) {
+        highlightErrorInput(comporValorInput);
+        return;
+    }
+
     mostrarProximoFormulario();
 }
-
 function validarFormulario2() {
     const fgtsSim = document.getElementById('fgts-sim').checked;
     const fgtsNao = document.getElementById('fgts-nao').checked;
+    const comporFgtsSim = document.getElementById('compor-fgts-sim').checked;
+    const comporFgtsNao = document.getElementById('compor-fgts-nao').checked;
+    const fgtsValorInput = document.getElementById('fgts-valor');
+    const comporFgtsValorInput = document.getElementById('compor-fgts-valor');
+
+    // Verifica se os botões FGTS Sim ou Não foram selecionados
     if (!fgtsSim && !fgtsNao) {
-        alert('Por favor, selecione uma opção de FGTS.');
+        highlightErrorButtons('fgts');
         return;
     }
+
+    // Verifica se os botões Compor FGTS Sim ou Não foram selecionados, se aparecerem
+    if (document.getElementById('compor-fgts-group').classList.contains('hidden') == false) {
+        if (!comporFgtsSim && !comporFgtsNao) {
+            highlightErrorButtons('compor-fgts');
+            return;
+        }
+    }
+
+    // Verifica se os campos de valor FGTS são válidos
+    if (fgtsSim && !fgtsValorInput.checkValidity()) {
+        highlightErrorInput(fgtsValorInput);
+        return;
+    }
+
+    if (comporFgtsSim && !comporFgtsValorInput.checkValidity()) {
+        highlightErrorInput(comporFgtsValorInput);
+        return;
+    }
+
+    // Se todas as validações forem bem-sucedidas, avança para o próximo formulário
     mostrarFormularioContato();
+}
+
+function validarFormularioContato() {
+    const nomeInput = document.getElementById('nome');
+    const numeroInput = document.getElementById('numero');
+    const emailInput = document.getElementById('email');
+
+    if (!nomeInput.checkValidity()) {
+        highlightErrorInput(nomeInput);
+        return;
+    }
+
+    if (!validarNumeroTelefone(numeroInput.value)) {
+        highlightErrorInput(numeroInput);
+        return;
+    }
+
+    if (!emailInput.checkValidity()) {
+        highlightErrorInput(emailInput);
+        return;
+    }
+
+    calcular();
+}
+
+function validarNumeroTelefone(numero) {
+    const telefonePattern = /^\(\d{2}\) \d{5}-\d{4}$/; // Formato (XX) XXXXX-XXXX
+    return telefonePattern.test(numero);
+}
+
+
+function highlightErrorInput(input) {
+    input.classList.add('error-input');
+
+    setTimeout(() => {
+        input.classList.remove('error-input');
+    }, 1500); // Duração em milissegundos
+}
+
+function highlightErrorButtons(groupName) {
+    const buttons = document.querySelectorAll(`button[onclick*='${groupName}']`);
+    buttons.forEach(button => button.classList.add('error'));
+
+    setTimeout(() => {
+        buttons.forEach(button => button.classList.remove('error'));
+    }, 1500); // Duração em milissegundos
 }
 
 function mostrarProximoFormulario() {
@@ -217,17 +309,17 @@ function calcular() {
                 resultado = `
                 <div class="result-container">
                     <div class="result-header">Sua Renda de:
-                        <span class="value">${formatNumber(totalRenda)}</span>
+                        <span class="value">R$${formatNumber(totalRenda)}</span>
                     </div>
-                    <div class="result-item">Seu Financiamento:
-                        <span class="value">${formatNumber(totalFinanciamento)}</span>
+                    <div class="result-item">Seu Financiamento é:
+                        <span class="value">R$${formatNumber(totalFinanciamento)}</span>
                     </div>
-                    <div class="result-item">Parcelas:
-                        <span class="value">${formatNumber(parcelas)}</span>
+                    <div class="result-item">Parcelas Até:
+                        <span class="value">R$${formatNumber(parcelas)}</span>
                     </div>
                     <div class="result-spacer"></div> <!-- Espaçamento vertical -->
                     <div class="result-item">Subsídio do Governo
-                        <span class="value">${formatNumber(subsidio)}</span>
+                        <span class="value">R$${formatNumber(subsidio)}</span>
                     </div>
                 </div>
                 `;
@@ -258,10 +350,17 @@ function formatarNumero(input) {
 }
 
 function formatarTelefone(input) {
-    let value = input.value.replace(/\D/g, '').slice(0, 11);
+    let value = input.value.replace(/\D/g, '').slice(0, 11); // Garante no máximo 11 dígitos
     value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
     value = value.replace(/(\d{5})(\d)/, '$1-$2');
     input.value = value;
+
+    // Adiciona um aviso se o número de telefone não estiver completo
+    if (value.length < 15) { // 15 caracteres no total (incluindo parênteses e traço)
+        input.setCustomValidity("Por favor, insira um número de telefone válido com 11 dígitos.");
+    } else {
+        input.setCustomValidity("");
+    }
 }
 
         function formatarValorMonetario(input) {    
