@@ -12,7 +12,7 @@ body {
     border-radius: 10px;
     position: relative;
     text-align: center;
-    background-color: #ffffff; /* Cor secundária: Branco */
+    background-color: #ffffff00; /* Cor secundária: Branco */
 }
 
 .form-group {
@@ -220,3 +220,14 @@ button:hover {
     width: 55%; /* Tamanho específico para a caixa de texto do nome */
 }
 
+.form-group input[type="text"].error-input,
+.form-group input[type="number"].error-input,
+.form-group input[type="email"].error-input {
+    border-color: red;
+    background-color: #fdd;
+}
+
+.button-group button.error {
+    background-color: red;
+    color: white;
+}

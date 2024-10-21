@@ -27,15 +27,15 @@
 
 .result-container {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 40px; /* Espaçamento entre os resultados e o botão de enviar */
+    font-size: 16px; /* Reduzir o tamanho da fonte */
+    margin-bottom: 20px; /* Espaço abaixo dos resultados */
 }
 
 .result-header {
-    font-size: 1.2em; /* Tamanho da fonte para "Renda" */
+    font-size: 1.5em; /* Tamanho maior para o título */
     font-weight: bold;
-    color: #000000; /* Cor preta */
-    margin-bottom: 20px; /* Espaçamento abaixo de "Renda" */
+    color: #000000;
+    margin-bottom: 10px; /* Reduzir o espaçamento abaixo do título */
 }
 
 .result-header .value {
@@ -45,17 +45,23 @@
     margin-top: 5px; /* Espaço entre o texto e o número */
 }
 
+.result-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap; /* Permite que os itens quebrem linha em dispositivos menores */
+}
+
 .result-item {
     display: inline-block;
-    margin: 0 15px;
-    font-size: 0.9em; /* Tamanho da fonte ligeiramente reduzido */
-    font-weight: bold;
-    color: #000000; /* Texto principal em preto */
+    width: 48%; /* Ajustar a largura para caber lado a lado */
+    margin: 0 1%; /* Espaçamento entre os itens */
+    text-align: center;
 }
 
 .result-item .value {
     display: block;
-    font-size: 1em; /* Tamanho da fonte dos números ligeiramente reduzido */
+    font-size: 1.3em; /* Tamanho da fonte dos números aumentado em 2px */
     color: #00A000; /* Números em verde */
     margin-top: 5px; /* Espaço entre o texto e o número */
 }
@@ -65,12 +71,17 @@
     height: 20px; /* Espaçamento vertical */
 }
 
+.result-occupation {
+    color: #263e96; /* Cor azul padrão */
+    font-weight: bold;
+    margin-top: 10px;
+}
 
 
 #enviar-dados {
     display: block;
-    margin: 20px auto;
-    padding: 20px 40px; /* Tamanho grande */
+    margin: 40px auto; /* Aumenta o espaço embaixo do botão */
+    padding: 20px 40px;
     background-color: #263e96; /* Cor principal */
     color: white;
     border: none;
@@ -99,5 +110,82 @@
 .error-input {
     border-color: red !important;
     background-color: #fd999900 !important; /* Fundo levemente avermelhado */
+}
+
+
+/* Estilo para o formulário de ocupação */
+.form-container-ocupacao {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-container-ocupacao h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #000000; /* Cor preta para o título */
+}
+
+.form-container-ocupacao .form-group-container {
+    display: flex;
+    flex-direction: column; /* Alinhar verticalmente */
+    align-items: flex-start; /* Alinhar itens à esquerda */
+    justify-content: center;
+    margin: 0 auto; /* Centralizar o container */
+    width: fit-content; /* Ajustar a largura ao conteúdo */
+}
+
+.form-container-ocupacao .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px; /* Espaçamento entre os grupos de formulários */
+}
+
+.form-container-ocupacao .form-group label {
+    display: flex;
+    align-items: center;
+    font-size: 18px; /* Aumenta o tamanho do texto */
+    color: #263e96; /* Cor azul padrão */
+    margin: 5px 0; /* Espaçamento vertical entre as caixinhas */
+}
+
+.form-container-ocupacao .form-group input[type="checkbox"] {
+    margin-right: 10px; /* Espaço entre a caixinha e o texto */
+    width: 20px; /* Largura da caixinha */
+    height: 20px; /* Altura da caixinha */
+    border: 2px solid #263e96; /* Borda mais grossa */
+    border-radius: 5px; /* Bordas arredondadas */
+}
+
+#button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Espaço entre os botões */
+    margin-top: 20px; /* Espaço acima dos botões */
+}
+
+#button-container .back-button,
+#button-container .next-button {
+    padding: 12px 28px;
+    font-size: 1.1em;
+    border-radius: 30px;
+    background-color: #263e96;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+#button-container .back-button:hover,
+#button-container .next-button:hover {
+    background-color: #BFCDFF; /* Nova cor secundária */
+}
+
+
+.form-container-ocupacao .form-group input[type="checkbox"].error-input {
+    border-color: red; /* Cor da borda vermelha para erro */
+}
+
+.form-container-ocupacao .form-group label.error-text {
+    color: red; /* Cor do texto vermelha para erro */
 }
 

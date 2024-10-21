@@ -101,11 +101,6 @@ function validarFormulario1() {
         return;
     }
 
-    if (!filhosSim && !filhosNao) {
-        highlightErrorButtons('filhos');
-        return;
-    }
-
     if (!comporSim && !comporNao) {
         highlightErrorButtons('compor');
         return;
@@ -116,8 +111,30 @@ function validarFormulario1() {
         return;
     }
 
+    if (!filhosSim && !filhosNao) {
+        highlightErrorButtons('filhos');
+        return;
+    }
+
     mostrarProximoFormulario();
 }
+
+function highlightErrorButtons(groupName) {
+    const buttons = document.querySelectorAll(`button[onclick*='${groupName}']`);
+    buttons.forEach(button => button.classList.add('error'));
+    setTimeout(() => {
+        buttons.forEach(button => button.classList.remove('error'));
+    }, 1500); // Duração em milissegundos
+}
+
+function highlightErrorInput(input) {
+    input.classList.add('error-input');
+    setTimeout(() => {
+        input.classList.remove('error-input');
+    }, 1500); // Duração em milissegundos
+}
+
+
 function validarFormulario2() {
     const fgtsSim = document.getElementById('fgts-sim').checked;
     const fgtsNao = document.getElementById('fgts-nao').checked;
@@ -152,8 +169,44 @@ function validarFormulario2() {
     }
 
     // Se todas as validações forem bem-sucedidas, avança para o próximo formulário
+    mostrarFormularioOcupacao();
+}
+
+function mostrarFormularioOcupacao() {
+    const formContainer2 = document.getElementById('form-container-2');
+    const formContainerOcupacao = document.getElementById('form-container-ocupacao');
+    formContainer2.classList.add('hidden');
+    formContainerOcupacao.classList.remove('hidden');
+}
+
+function validarFormularioOcupacao() {
+    const ocupacao = document.querySelectorAll('input[name="ocupacao"]:checked');
+
+    if (ocupacao.length === 0) {
+        highlightErrorInputs('ocupacao');
+        return;
+    }
+
     mostrarFormularioContato();
 }
+
+function highlightErrorInputs(name) {
+    const inputs = document.querySelectorAll(`input[name='${name}']`);
+    inputs.forEach(input => {
+        const label = input.parentElement;
+        input.classList.add('error-input');
+        label.classList.add('error-text');
+    });
+
+    setTimeout(() => {
+        inputs.forEach(input => {
+            const label = input.parentElement;
+            input.classList.remove('error-input');
+            label.classList.remove('error-text');
+        });
+    }, 1500); // Duração em milissegundos
+}
+
 
 function validarFormularioContato() {
     const nomeInput = document.getElementById('nome');
@@ -184,14 +237,6 @@ function validarNumeroTelefone(numero) {
 }
 
 
-function highlightErrorInput(input) {
-    input.classList.add('error-input');
-
-    setTimeout(() => {
-        input.classList.remove('error-input');
-    }, 1500); // Duração em milissegundos
-}
-
 function highlightErrorButtons(groupName) {
     const buttons = document.querySelectorAll(`button[onclick*='${groupName}']`);
     buttons.forEach(button => button.classList.add('error'));
@@ -215,6 +260,29 @@ function voltarFormulario() {
     formContainer.classList.remove('hidden');
 }
 
+function voltarFormulario2() {
+    const formContainer2 = document.getElementById('form-container-2');
+    const formContainerOcupacao = document.getElementById('form-container-ocupacao');
+    const formContainer3 = document.getElementById('form-container-3'); // Adicionado
+    formContainerOcupacao.classList.add('hidden');
+    formContainer3.classList.add('hidden'); // Adicionado para esconder o formulário de contato
+    formContainer2.classList.remove('hidden');
+}
+
+function voltarFormularioOcupacao() {
+    const formContainer2 = document.getElementById('form-container-2');
+    const formContainerOcupacao = document.getElementById('form-container-ocupacao');
+    formContainerOcupacao.classList.add('hidden');
+    formContainer2.classList.remove('hidden');
+}
+
+function voltarFormularioContato() {
+    const formContainerOcupacao = document.getElementById('form-container-ocupacao');
+    const formContainer3 = document.getElementById('form-container-3');
+    formContainer3.classList.add('hidden');
+    formContainerOcupacao.classList.remove('hidden');
+}
+
 
 function toggleComporFgts(show) {
     const comporFgtsValorGroup = document.getElementById('compor-fgts-valor-group');
@@ -229,20 +297,11 @@ function toggleComporFgts(show) {
 }
 
 function mostrarFormularioContato() {
-    const formContainer2 = document.getElementById('form-container-2');
+    const formContainerOcupacao = document.getElementById('form-container-ocupacao');
     const formContainer3 = document.getElementById('form-container-3');
-    formContainer2.classList.add('hidden');
+    formContainerOcupacao.classList.add('hidden');
     formContainer3.classList.remove('hidden');
 }
-
-
-function voltarFormulario2() {
-    const formContainer2 = document.getElementById('form-container-2');
-    const formContainer3 = document.getElementById('form-container-3');
-    formContainer3.classList.add('hidden');
-    formContainer2.classList.remove('hidden');
-}
-
 
 function validarFormularioContato() {
     const nomeInput = document.getElementById('nome');
@@ -250,22 +309,31 @@ function validarFormularioContato() {
     const emailInput = document.getElementById('email');
 
     if (!nomeInput.checkValidity()) {
-        nomeInput.reportValidity();
+        highlightErrorInput(nomeInput);
         return;
     }
 
     if (!numeroInput.checkValidity()) {
-        numeroInput.reportValidity();
+        highlightErrorInput(numeroInput);
         return;
     }
 
     if (!emailInput.checkValidity()) {
-        emailInput.reportValidity();
+        highlightErrorInput(emailInput);
         return;
     }
 
     calcular();
 }
+
+function highlightErrorInput(input) {
+    input.classList.add('error-input');
+
+    setTimeout(() => {
+        input.classList.remove('error-input');
+    }, 1500); // Duração em milissegundos
+}
+
 
 function calcular() {
     const rendaInput = document.getElementById('renda');
@@ -280,6 +348,7 @@ function calcular() {
     const comporFgtsSim = document.getElementById('compor-fgts-sim').checked;
     const comporFgtsNao = document.getElementById('compor-fgts-nao').checked;
     const comporFgtsValorInput = document.getElementById('compor-fgts-valor');
+    const ocupacoes = Array.from(document.querySelectorAll('input[name="ocupacao"]:checked')).map(el => el.value);
     const loadingContainer = document.getElementById('loading-container');
     const resultContainer = document.getElementById('result-container');
     const result = document.getElementById('result');
@@ -300,31 +369,42 @@ function calcular() {
         let resultado = "Valor não encontrado para a renda informada.";
         let found = false;
 
-        // Corrigindo a consulta para considerar totalRenda corretamente
         for (const [key, value] of Object.entries(valores).reverse()) {
             if (totalRenda >= parseFloat(key)) {
+                const financiamento = value[0];
                 const totalFinanciamento = value[0] + totalFgts;
                 const parcelas = value[1];
                 const subsidio = (filhosNao && comporNao) ? value[3] : value[2];
                 resultado = `
                 <div class="result-container">
-                    <div class="result-header">Sua Renda de:
+                    <div class="result-header">Renda Total
                         <span class="value">R$${formatNumber(totalRenda)}</span>
                     </div>
-                    <div class="result-item">Seu Financiamento é:
-                        <span class="value">R$${formatNumber(totalFinanciamento)}</span>
+                    <div class="result-occupation">Ocupação:</div>
+                    <div class="result-occupation">${ocupacoes.join(', ')}</div>
+                    <div class="result-row">
+                        <div class="result-item">
+                            <div><b>Financiamento:</b></div>
+                            <span class="value">R$${formatNumber(financiamento)}</span>
+                        </div>
+                        <div class="result-item">
+                            <div><b>Seu FGTS:</b></div>
+                            <span class="value">R$${formatNumber(totalFgts)}</span>
+                        </div>
                     </div>
-                    <div class="result-item">Parcelas Até:
-                        <span class="value">R$${formatNumber(parcelas)}</span>
-                    </div>
-                    <div class="result-spacer"></div> <!-- Espaçamento vertical -->
-                    <div class="result-item">Subsídio do Governo
-                        <span class="value">R$${formatNumber(subsidio)}</span>
+                    <div class="result-row">
+                        <div class="result-item">
+                            <div><b>Total Financiamento:</b></div>
+                            <span class="value">R$${formatNumber(totalFinanciamento)}</span>
+                        </div>
+                        <div class="result-item">
+                            <div><b>Subsídio do Governo:</b></div>
+                            <span class="value">R$${formatNumber(subsidio)}</span>
+                        </div>
                     </div>
                 </div>
                 `;
                 found = true;
-
                 // Atualize os valores que queremos enviar
                 enviarDadosParaSheetMonkey(totalRenda, totalFinanciamento, parcelas, subsidio);
                 break;
@@ -340,6 +420,8 @@ function calcular() {
     }, 2000);
 }
 
+
+
 function voltar() {
     location.reload(); // Recarrega a página
 }
@@ -349,19 +431,6 @@ function formatarNumero(input) {
     input.value = value;
 }
 
-function formatarTelefone(input) {
-    let value = input.value.replace(/\D/g, '').slice(0, 11); // Garante no máximo 11 dígitos
-    value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
-    value = value.replace(/(\d{5})(\d)/, '$1-$2');
-    input.value = value;
-
-    // Adiciona um aviso se o número de telefone não estiver completo
-    if (value.length < 15) { // 15 caracteres no total (incluindo parênteses e traço)
-        input.setCustomValidity("Por favor, insira um número de telefone válido com 11 dígitos.");
-    } else {
-        input.setCustomValidity("");
-    }
-}
 
         function formatarValorMonetario(input) {    
             let value = input.value.replace(/\D/g, '');
