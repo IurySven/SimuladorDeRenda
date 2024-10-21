@@ -12,7 +12,7 @@ body {
     border-radius: 10px;
     position: relative;
     text-align: center;
-    background-color: #ffffff00; /* Cor secundária: Branco */
+    background-color: #ffffff00; /* Cor de fundo */
 }
 
 .form-group {

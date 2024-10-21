@@ -18,6 +18,8 @@ function parseNumber(str) {
     return parseFloat(str.replace(/\./g, '').replace(',', '.').replace('R$', ''));
 }
 
+let comporRenda = false;
+
 function selecionarOpcao(botao, nome, valor) {
     const botoes = botao.parentNode.querySelectorAll('button');
     botoes.forEach(b => b.classList.remove('active'));
@@ -25,6 +27,7 @@ function selecionarOpcao(botao, nome, valor) {
     document.getElementById(`${nome}-${valor}`).checked = true;
 
     if (nome === 'compor' && valor === 'sim') {
+        comporRenda = true; // Atualiza o estado de compor renda
         document.getElementById('compor-valor-group').classList.remove('hidden');
         document.getElementById('compor-valor').setAttribute('required', 'required');
         document.getElementById('compor-valor').addEventListener('invalid', function() {
@@ -32,6 +35,7 @@ function selecionarOpcao(botao, nome, valor) {
         });
         document.getElementById('compor-fgts-group').classList.remove('hidden');
     } else if (nome === 'compor' && valor === 'nao') {
+        comporRenda = false; // Atualiza o estado de compor renda
         document.getElementById('compor-valor-group').classList.add('hidden');
         document.getElementById('compor-valor').removeAttribute('required');
         document.getElementById('compor-fgts-group').classList.add('hidden');
@@ -175,19 +179,79 @@ function validarFormulario2() {
 function mostrarFormularioOcupacao() {
     const formContainer2 = document.getElementById('form-container-2');
     const formContainerOcupacao = document.getElementById('form-container-ocupacao');
+
     formContainer2.classList.add('hidden');
     formContainerOcupacao.classList.remove('hidden');
 }
 
 function validarFormularioOcupacao() {
     const ocupacao = document.querySelectorAll('input[name="ocupacao"]:checked');
+    const comporSim = document.getElementById('compor-sim').checked;
+
+    if (ocupacao.length === 0) {
+        highlightErrorInputs('ocupacao');
+        console.log('Nenhuma ocupação selecionada');
+        return;
+    }
+
+    if (comporSim) {
+        console.log('Compondo renda. Mostrando segundo formulário de ocupação.');
+        mostrarFormularioOcupacao2(); // Mostra o segundo formulário de ocupação
+    } else {
+        console.log('Não compondo renda. Indo diretamente para o formulário de contato.');
+        mostrarFormularioContato(); // Vai diretamente ao formulário de contato
+    }
+}
+
+function mostrarFormularioOcupacao2() {
+    const formContainerOcupacao = document.getElementById('form-container-ocupacao');
+    const formContainerOcupacao2 = document.getElementById('form-container-ocupacao2');
+    formContainerOcupacao.classList.add('hidden');
+    formContainerOcupacao2.classList.remove('hidden');
+}
+
+function voltarFormularioOcupacao2() {
+    const formContainerOcupacao2 = document.getElementById('form-container-ocupacao2');
+    const formContainerOcupacao = document.getElementById('form-container-ocupacao');
+
+    formContainerOcupacao2.classList.add('hidden');
+    formContainerOcupacao.classList.remove('hidden');
+}
+
+
+function validarFormularioOcupacao2() {
+    const ocupacao2 = document.querySelectorAll('input[name="ocupacao2"]:checked');
+    if (ocupacao2.length === 0) {
+        highlightErrorInputs('ocupacao2');
+        return;
+    }
+    mostrarFormularioContato();
+}
+
+function validarFormularioOcupacao() {
+    const ocupacao = document.querySelectorAll('input[name="ocupacao"]:checked');
+    const comporSim = document.getElementById('compor-sim').checked;
 
     if (ocupacao.length === 0) {
         highlightErrorInputs('ocupacao');
         return;
     }
 
-    mostrarFormularioContato();
+    if (comporSim) {
+        mostrarFormularioOcupacao2(); // Mostra o segundo formulário de ocupação
+    } else {
+        mostrarFormularioContato(); // Vai diretamente ao formulário de contato
+    }
+}
+
+
+function voltarFormulario2() {
+    const formContainer2 = document.getElementById('form-container-2');
+    const formContainerOcupacao = document.getElementById('form-container-ocupacao');
+    const formContainerOcupacao2 = document.getElementById('form-container-ocupacao2');
+    formContainer2.classList.add('hidden');
+    formContainerOcupacao2.classList.add('hidden'); // Escondendo o segundo formulário
+    formContainerOcupacao.classList.remove('hidden'); // Mostrando o primeiro formulário
 }
 
 function highlightErrorInputs(name) {
@@ -276,12 +340,27 @@ function voltarFormularioOcupacao() {
     formContainer2.classList.remove('hidden');
 }
 
-function voltarFormularioContato() {
+function voltarFormularioOcupacao2() {
+    const formContainerOcupacao2 = document.getElementById('form-container-ocupacao2');
     const formContainerOcupacao = document.getElementById('form-container-ocupacao');
-    const formContainer3 = document.getElementById('form-container-3');
-    formContainer3.classList.add('hidden');
+    formContainerOcupacao2.classList.add('hidden');
     formContainerOcupacao.classList.remove('hidden');
 }
+
+function voltarFormularioContato() {
+    const formContainerOcupacao = document.getElementById('form-container-ocupacao');
+    const formContainerOcupacao2 = document.getElementById('form-container-ocupacao2');
+    const formContainer3 = document.getElementById('form-container-3');
+    
+    formContainer3.classList.add('hidden');
+    
+    if (comporRenda) {
+        formContainerOcupacao2.classList.remove('hidden');
+    } else {
+        formContainerOcupacao.classList.remove('hidden');
+    }
+}
+
 
 
 function toggleComporFgts(show) {
@@ -298,10 +377,14 @@ function toggleComporFgts(show) {
 
 function mostrarFormularioContato() {
     const formContainerOcupacao = document.getElementById('form-container-ocupacao');
+    const formContainerOcupacao2 = document.getElementById('form-container-ocupacao2');
     const formContainer3 = document.getElementById('form-container-3');
+    
     formContainerOcupacao.classList.add('hidden');
+    formContainerOcupacao2.classList.add('hidden'); // Esconde o segundo formulário se estiver visível
     formContainer3.classList.remove('hidden');
 }
+
 
 function validarFormularioContato() {
     const nomeInput = document.getElementById('nome');
@@ -372,16 +455,16 @@ function calcular() {
         for (const [key, value] of Object.entries(valores).reverse()) {
             if (totalRenda >= parseFloat(key)) {
                 const financiamento = value[0];
-                const totalFinanciamento = value[0] + totalFgts;
                 const parcelas = value[1];
                 const subsidio = (filhosNao && comporNao) ? value[3] : value[2];
+                const totalFinanciamento = value[0] + totalFgts + subsidio;
                 resultado = `
                 <div class="result-container">
+
                     <div class="result-header">Renda Total
                         <span class="value">R$${formatNumber(totalRenda)}</span>
                     </div>
-                    <div class="result-occupation">Ocupação:</div>
-                    <div class="result-occupation">${ocupacoes.join(', ')}</div>
+
                     <div class="result-row">
                         <div class="result-item">
                             <div><b>Financiamento:</b></div>
@@ -394,13 +477,17 @@ function calcular() {
                     </div>
                     <div class="result-row">
                         <div class="result-item">
+                            <div><b>Subsidio do Governo:</b></div>
+                            <span class="value">R$${formatNumber(subsidio)}</span>
+                        </div>
+                        <div class="result-item">
                             <div><b>Total Financiamento:</b></div>
                             <span class="value">R$${formatNumber(totalFinanciamento)}</span>
                         </div>
-                        <div class="result-item">
-                            <div><b>Subsídio do Governo:</b></div>
-                            <span class="value">R$${formatNumber(subsidio)}</span>
-                        </div>
+                    </div>
+                    <div class="result-item">
+                        <div><b>Parcelas Até:</b></div>
+                        <span class="value">R$${formatNumber(parcelas)}</span>
                     </div>
                 </div>
                 `;

@@ -50,7 +50,7 @@
             <h1>Informações de FGTS</h1>
 
             <div class="form-group">
-                <label>Vocé Possue FGTS?</label>
+                <label>Você Possui FGTS?</label>
                 <div class="button-group">
                     <button type="button" onclick="selecionarOpcao(this, 'fgts', 'sim')">Sim</button>
                     <button type="button" onclick="selecionarOpcao(this, 'fgts', 'nao')">Não</button>
@@ -61,7 +61,7 @@
             </div>
     
             <div class="form-group hidden" id="compor-fgts-group">
-                <label>A Outra Pessoa Possue FGTS?</label>
+                <label>A Outra Pessoa Possui FGTS?</label>
                 <div class="button-group">
                     <button type="button" onclick="selecionarOpcao(this, 'compor-fgts', 'sim')">Sim</button>
                     <button type="button" onclick="selecionarOpcao(this, 'compor-fgts', 'nao')">Não</button>
@@ -77,27 +77,27 @@
         </div>
 
         <div class="container hidden form-container-ocupacao" id="form-container-ocupacao">
-            <h1>Qual ocupação de trabalho do(s) interessado(s)?</h1>
+            <h1>Qual é a Sua Ocupação de Trabalho?</h1>
             <h3>(se necessário pode clicar em mais de 1 opção)</h3>
             <div class="form-group-container">
                 <div class="form-group">
                     <label>
-                        <input type="checkbox" name="ocupacao" value="Empregado"><b>Trabalho Registrado(CLT)</b>
+                        <input type="checkbox" name="ocupacao" value="Trabalho Registrado(CLT)"><b>Trabalho Registrado(CLT)</b>
                     </label>
                 </div>
                 <div class="form-group">
                     <label>
-                        <input type="checkbox" name="ocupacao" value="Desempregado"><b>Funcionário(a) Público</b> 
+                        <input type="checkbox" name="ocupacao" value="Funcionário(a) Público"><b>Funcionário(a) Público</b> 
                     </label>
                 </div>
                 <div class="form-group">
                     <label>
-                        <input type="checkbox" name="ocupacao" value="Autônomo"><b>Aposentado(a)</b> 
+                        <input type="checkbox" name="ocupacao" value="Aposentado(a)"><b>Aposentado(a)</b> 
                     </label>
                 </div>
                 <div class="form-group">
                     <label>
-                        <input type="checkbox" name="ocupacao" value="Estudante"><b>Altônomo ou MEI</b> 
+                        <input type="checkbox" name="ocupacao" value="Altônomo ou MEI"><b>Altônomo ou MEI</b> 
                     </label>
                 </div>
             </div>
@@ -106,6 +106,41 @@
                 <button type="button" class="back-button" onclick="voltarFormulario2()">Voltar</button>
                 <button type="button" class="next-button" onclick="validarFormularioOcupacao()">Próximo</button>
             </div>
+        </div>
+
+        <div class="container hidden form-container-ocupacao" id="form-container-ocupacao2">
+            <h1>Qual é a Ocupação de Trabalho da Outra Pessoa</h1>
+            <h3>(se necessário pode clicar em mais de 1 opção)</h3>
+            <div class="form-group-container">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="ocupacao2" value="Trabalho Registrado(CLT)"><b>Trabalho Registrado(CLT)</b>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="ocupacao2" value="Funcionário(a) Público"><b>Funcionário(a) Público</b>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="ocupacao2" value="Aposentado(a)"><b>Aposentado(a)</b>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="ocupacao2" value="Autônomo ou MEI"><b>Autônomo ou MEI</b>
+                    </label>
+                </div>
+            </div>
+            <div id="button-container">
+                <button type="button" class="back-button" onclick="voltarFormularioOcupacao2()">Voltar</button>
+                <button type="button" class="next-button" onclick="validarFormularioOcupacao2()">Próximo</button>
+            </div>
+        </div>
+        
+        </div>
+        
         </div>
         
         <div class="container hidden" id="form-container-3">

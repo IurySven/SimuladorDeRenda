@@ -14,7 +14,8 @@ function enviarDadosParaSheetMonkey(totalRenda, totalFinanciamento, parcelas, su
     const dataEnvio = now.toLocaleDateString('pt-BR');
     const horaEnvio = now.toLocaleTimeString('pt-BR');
     const empresa = "Cury";
-    const ocupacoes = Array.from(document.querySelectorAll('input[name="ocupacao"]:checked')).map(el => el.value).join(', ');
+    const ocupacao1 = Array.from(document.querySelectorAll('input[name="ocupacao"]:checked')).map(el => el.value).join(', ');
+    const ocupacao2 = Array.from(document.querySelectorAll('input[name="ocupacao2"]:checked')).map(el => el.value).join(', ');
 
     const data = {
         renda,
@@ -35,10 +36,11 @@ function enviarDadosParaSheetMonkey(totalRenda, totalFinanciamento, parcelas, su
         totalFinanciamento: formatCurrency(totalFinanciamento),
         parcelas: formatCurrency(parcelas),
         subsidio: `"${formatCurrency(subsidio)}"`, // Enviar como texto
-        ocupacoes // Adicionando ocupações
+        ocupacao1, // Adicionando ocupação 1
+        ocupacao2 // Adicionando ocupação 2
     };
 
-    const url = 'https://api.sheetmonkey.io/form/QJ2BgFDaALqHsqkgr6Yvu';
+    const url = 'https://api.sheetmonkey.io/form/QJ2BgFDaALqHsqkgr6Yvu'; // URL da API do Sheet Monkey
     fetch(url, {
         method: 'POST',
         headers: {
@@ -54,6 +56,7 @@ function enviarDadosParaSheetMonkey(totalRenda, totalFinanciamento, parcelas, su
         console.error('Error:', error);
     });
 }
+
 
 function formatarTelefoneParaSheetMonkey(numero) {
     let value = numero.replace(/\D/g, ''); // Remove caracteres não numéricos

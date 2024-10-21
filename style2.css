@@ -28,21 +28,21 @@
 .result-container {
     text-align: center;
     font-size: 16px; /* Reduzir o tamanho da fonte */
-    margin-bottom: 20px; /* Espaço abaixo dos resultados */
+    margin-bottom: 5px; /* Espaço abaixo dos resultados */
 }
 
 .result-header {
-    font-size: 1.5em; /* Tamanho maior para o título */
+    font-size: 1.4em; /* Tamanho maior para o título */
     font-weight: bold;
     color: #000000;
-    margin-bottom: 10px; /* Reduzir o espaçamento abaixo do título */
+    margin-bottom: 7px; /* Reduzir o espaçamento abaixo do título */
 }
 
 .result-header .value {
     display: block;
     font-size: 1.2em; /* Tamanho da fonte dos números ligeiramente reduzido */
     color: #00A000; /* Números em verde */
-    margin-top: 5px; /* Espaço entre o texto e o número */
+    margin-top: 3px; /* Espaço entre o texto e o número */
 }
 
 .result-row {
@@ -68,7 +68,7 @@
 
 .result-spacer {
     display: block;
-    height: 20px; /* Espaçamento vertical */
+    height: 15px; /* Espaçamento vertical */
 }
 
 .result-occupation {
@@ -80,8 +80,9 @@
 
 #enviar-dados {
     display: block;
-    margin: 40px auto; /* Aumenta o espaço embaixo do botão */
+    margin: 5px auto; /* Aumenta o espaço embaixo do botão */
     padding: 20px 40px;
+    margin-top: 50px;
     background-color: #263e96; /* Cor principal */
     color: white;
     border: none;
